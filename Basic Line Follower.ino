@@ -5,11 +5,11 @@
 
 #define in1 6 //Motor1  L293 Pin in1 
 
-#define in2 7 //Motor1  L293 Pin in1 
+#define in2 7 //Motor1  L293 Pin in2
 
 #define in3 10 //Motor2  L293 Pin in1 
 
-#define in4 11 //Motor2  L293 Pin in1 
+#define in4 11 //Motor2  L293 Pin in2
 
 #define enB 9 //Enable2 L293 Pin enB 
 
@@ -18,7 +18,6 @@
 #define L_S 2 //ir sensor Left
 
 void setup(){ 
-Serial.begin(9600);
 
 pinMode(R_S, INPUT); 
 
@@ -34,11 +33,7 @@ pinMode(in3, OUTPUT);
 
 pinMode(in4, OUTPUT); 
 
-pinMode(enB, OUTPUT);
-
-digitalWrite(enA, HIGH); 
-
-digitalWrite(enB, HIGH); 
+pinMode(enB, OUTPUT); 
 
 delay(1000);
 
@@ -46,7 +41,7 @@ delay(1000);
 
 void loop(){  
 
-if((digitalRead(R_S) == 0)&&(digitalRead(L_S) == 0)){forward();}   //if Right Sensor and Left Sensor are at White color then it will call forword function
+if((digitalRead(R_S) == 0)&&(digitalRead(L_S) == 0)){forward();}   //if Right Sensor and Left Sensor are at White color then it will call forward function
 
 if((digitalRead(R_S) == 1)&&(digitalRead(L_S) == 0)){turnRight();} //if Right Sensor is Black and Left Sensor is White then it will call turn Right function  
 
@@ -60,13 +55,13 @@ void forward(){  //forword
 	analogWrite(enA, 50);
 	analogWrite(enB, 50);
 
-digitalWrite(in1, LOW); //Right Motor forword Pin 
+digitalWrite(in1, HIGH); //Right Motor forward Pin 
 
-digitalWrite(in2, HIGH);  //Right Motor backword Pin 
+digitalWrite(in2, LOW);  //Right Motor backward Pin 
 
-digitalWrite(in3, HIGH);  //Left Motor backword Pin 
+digitalWrite(in3, HIGH);  //Left Motor forward Pin 
 
-digitalWrite(in4, LOW); //Left Motor forword Pin 
+digitalWrite(in4, LOW); //Left Motor backward Pin 
 
 }
 
@@ -74,37 +69,40 @@ void turnRight(){ //turnRight
 	analogWrite(enA, 50);
 	analogWrite(enB, 50);
 
-digitalWrite(in1, LOW); //Right Motor forword Pin 
+digitalWrite(in1, LOW); //Right Motor forward Pin 
 
-digitalWrite(in2, HIGH);  //Right Motor backword Pin 
+digitalWrite(in2, HIGH);  //Right Motor backward Pin 
 
-digitalWrite(in3, LOW); //Left Motor backword Pin 
+digitalWrite(in3, HIGH); //Left Motor forward Pin 
 
-digitalWrite(in4, HIGH);  //Left Motor forword Pin 
+digitalWrite(in4, LOW);  //Left Motor backward Pin 
 }
 
 void turnLeft(){ //turnLeft
 	analogWrite(enA, 50);
 	analogWrite(enB, 50);
 
-digitalWrite(in1, HIGH);  //Right Motor forword Pin 
+digitalWrite(in1, HIGH);  //Right Motor forward Pin 
 
-digitalWrite(in2, LOW); //Right Motor backword Pin  
+digitalWrite(in2, LOW); //Right Motor backward Pin  
 
-digitalWrite(in3, HIGH);  //Left Motor backword Pin 
+digitalWrite(in3, LOW);  //Left Motor forward Pin 
 
-digitalWrite(in4, LOW); //Left Motor forword Pin 
+digitalWrite(in4, HIGH); //Left Motor backward Pin 
 
 }
 
 void Stop(){ //stop
 
-digitalWrite(in1, LOW); //Right Motor forword Pin 
+	analogWrite(enA, 0);
+	analogWrite(enB, 0);
 
-digitalWrite(in2, LOW); //Right Motor backword Pin 
+digitalWrite(in1, LOW); //Right Motor forward Pin 
 
-digitalWrite(in3, LOW); //Left Motor backword Pin 
+digitalWrite(in2, LOW); //Right Motor backward Pin 
 
-digitalWrite(in4, LOW); //Left Motor forword Pin 
+digitalWrite(in3, LOW); //Left Motor forward Pin 
+
+digitalWrite(in4, LOW); //Left Motor backward Pin 
 
 }
